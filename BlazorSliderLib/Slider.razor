@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@typeparam T where T : struct, IComparable
+<input class="sliderv2" type="range" @bind="@Value" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" />
+<label class="sliderv2Label">@Title: @Value</label>
+<link rel="stylesheet" href="_content/BlazorSliderLib/Slider.css" />
+<datalist id="@TickmarksId">
+    @foreach (var value in Tickmarks){
+        <option value="@value" label="@value"></option>
+    }
+</datalist>
+<div class="tick-labels"> 
+    @foreach (var value in Tickmarks)
+    {
+        if (value % Convert.ToDouble(Stepsize) == 0){
+            <span class="tick-label">@value</span>
+        }
+    } </div>
+@code {
+
+    /// <summary>
+    /// Initial value to set to the slider, data bound so it can also be read out
+    /// </summary>
+    [Parameter]
+    public required T Value { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public required T Minimum { get; set; } = (T)Convert.ChangeType(0, typeof(T));
+
+    [Parameter]
+    public required T Maximum { get; set; } = (T) Convert.ChangeType(100, typeof(T));
+
+    [Parameter]
+    public required T Stepsize { get; set; } = (T)Convert.ChangeType(5, typeof(T));
+
+    [Parameter]
+    public bool ShowTickmarks { get; set; } = true;
+
+    [Parameter] public EventCallback<T> ValueChanged { get; set; }
+    private async Task OnValueChanged(ChangeEventArgs e) {
+        if (e.Value == null){
+            return;
+        }
+        Value = (T)Convert.ChangeType(e.Value, typeof(T)); 
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    public List<double> Tickmarks { get; set; } = new List<double>();
+
+    private string TickmarksId = "ticksmarks_" + Guid.NewGuid().ToString("N");
+
+    protected override void OnParametersSet()
+    {
+        if (Maximum.CompareTo(Minimum) < 1){
+            throw new ArgumentException("The value for parameter 'Maximum' is set to a smaller value than {Minimum}");
+        }
+        GenerateTickMarks();
+    }
+
+    private void GenerateTickMarks(){
+        Tickmarks.Clear();
+        if (!ShowTickmarks){
+            return;
+        }
+        for (double i = Convert.ToDouble(Minimum); i < Convert.ToDouble(Maximum); i += Convert.ToDouble(Stepsize))
+        {
+            Tickmarks.Add(i);                        
+        }
+    }
+
+
+
+
+}

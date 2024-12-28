@@ -1,0 +1,12 @@
+﻿.sliderv2
+{
+    background-color:red;
+    width:100%;
+}
+
+.sliderv2Label {
+    font-weight: 400;
+    text-align: center;
+    left:50%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, margin-bottom: 2px;
+}

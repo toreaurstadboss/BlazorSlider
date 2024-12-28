@@ -1,10 +1,46 @@
 ﻿@page "/"
+@using BlazorSlider.Models
 @using BlazorSliderLib
+
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="container"> 
 
-<Component1></Component1>
+    <EditForm Model="@Model">
+
+        <div class="row">
+            <div class="form-control col-md-4">
+                <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-control col-md-4">
+                <Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateStateIfNecessary(e))" Stepsize="1" Title="Your health today" />
+            </div>
+        </div>  
+
+        <div class="row">
+            <div class="form-control col-md-4">
+                <p>Value of Model.Data.Eq5d6</p>
+                @Model.Data.Eq5dq6
+            </div>
+        </div>
+
+
+    </EditForm>
+
+</div>
+
+@code {
+    private HomeModel Model = new();
+
+    private void UpdateStateIfNecessary(int value)
+    {
+        Model.Data.Eq5dq6 = value;
+        StateHasChanged();
+    }
+}
+
