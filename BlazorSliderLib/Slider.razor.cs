@@ -36,7 +36,13 @@ namespace BlazorSliderLib
         [Parameter]
         public bool UseAlternateStyle { get; set; } = false;
 
-        [Parameter] public EventCallback<T> ValueChanged { get; set; }
+        [Parameter]
+        public EventCallback<T> ValueChanged { get; set; }
+
+        public List<double> Tickmarks { get; set; } = new List<double>();
+
+        private bool _isInitialized = false;
+
         private async Task OnValueChanged(ChangeEventArgs e)
         {
             if (e.Value == null)
@@ -47,13 +53,12 @@ namespace BlazorSliderLib
             await ValueChanged.InvokeAsync(Value);
         }
 
-        public List<double> Tickmarks { get; set; } = new List<double>();
 
         private string TickmarksId = "ticksmarks_" + Guid.NewGuid().ToString("N");
 
         protected override void OnParametersSet()
         {
-            if (Value.CompareTo(null) == 0)
+            if (!_isInitialized && (Value.CompareTo(null) == 0 || Value.CompareTo(0) == 0))
             {
                 Value = (T)Convert.ChangeType((Convert.ToDouble(Maximum) - Convert.ToDouble(Minimum)) / 2, typeof(T));
             }
@@ -63,6 +68,8 @@ namespace BlazorSliderLib
                 throw new ArgumentException("The value for parameter 'Maximum' is set to a smaller value than {Minimum}");
             }
             GenerateTickMarks();
+
+            _isInitialized = true;
         }
 
         private void GenerateTickMarks()

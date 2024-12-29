@@ -1,13 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 @typeparam T where T : struct, IComparable
 
-<input class="sliderv2" type="range" @bind="@Value" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" oninput="updateTooltip(this)" />
+<input class="sliderv2" type="range" @bind="@Value" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
 <datalist id="@TickmarksId">
     @foreach (var value in Tickmarks){
         <option class="tick-label" value="@value" label="@value"></option>
     }
 </datalist>
-<label class="sliderv2Label">@Title: @Value</label>
+@if (!string.IsNullOrWhiteSpace(Title)){
+    <label class="sliderv2Label">@Title: @Value</label>
+}
 
 <link rel="stylesheet" href="_content/BlazorSliderLib/Slider.css" />
 @if (UseAlternateStyle){

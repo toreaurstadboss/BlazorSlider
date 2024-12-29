@@ -18,15 +18,14 @@
 
         <div class="row">
             <div class="form-control col-md-4">
-                <Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateStateIfNecessary(e))" Stepsize="10" Title="Your health today" />
+                <Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateStateIfNecessary(e))" Stepsize="5" Title="Your health today" />
             </div>
-        </div>  
+        </div>
 
         <div class="row">
-            <div class="form-control col-md-4">
-                <p>Value of Model.Data.Eq5d6</p>
-                @Model.Data.Eq5dq6
-            </div>
+            <div class="form-control col-md-4"> <p>Value of Model.Data.Eq5d6</p>
+                @Model.Data.Eq5dq6 
+            </div> 
         </div>
 
 
@@ -35,10 +34,11 @@
 </div>
 
 @code {
-    private HomeModel Model = new();
+    private HomeModel Model { get; set; } = new();
 
     private void UpdateStateIfNecessary(int value)
     {
+        Console.WriteLine($"The curent value is {value}");
         Model.Data.Eq5dq6 = value;
         StateHasChanged();
     }
