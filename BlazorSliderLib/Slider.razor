@@ -7,18 +7,27 @@
         <option class="tick-label" value="@value" label="@value"></option>
     }
 </datalist>
+<div class="row">
 @if (!string.IsNullOrWhiteSpace(MinimumDescription)){
-    <label class="sliderv2Label">@MinimumDescription</label>
+    <div class="col-md-4">
+        <label class="sliderv2Label text-muted">@MinimumDescription</label>
+    </div>
 }
 @if (!string.IsNullOrWhiteSpace(Title)){
-<label class="sliderv2Label">@Title: @Value</label>
+    <div class="col-md-4">
+        <label class="sliderv2Label text-muted" style="text-align:center">@Title: @Value</label>
+    </div>
 }
 
 @if (!string.IsNullOrWhiteSpace(MaximumDescription)){
-    <label class="sliderv2Label">@MaximumDescription</label>
+    <div class="col-md-4" style="text-align:right">
+        <label class="sliderv2Label tet-muted text-end">@MaximumDescription</label>
+    </div>
 }
 
 <link rel="stylesheet" href="_content/BlazorSliderLib/Slider.css" />
 @if (UseAlternateStyle){
     <link rel="stylesheet" href="_content/BlazorSliderLib/SliderGreen.css" />      
 }
+
+</div>
