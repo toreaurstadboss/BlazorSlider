@@ -19,8 +19,12 @@ datalist {
     width: 100%;
 }
 
-option {
-    padding: 0;
+.tick-label {
+
+    justify-content: space-between;
+    font-size:0.6em;
+
+    top: 20px; /* Adjust this value as needed */
 }
 
 input[type="range"] {

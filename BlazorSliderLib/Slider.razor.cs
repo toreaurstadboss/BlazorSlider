@@ -69,7 +69,7 @@ namespace BlazorSliderLib
             {
                 return;
             }
-            for (double i = Convert.ToDouble(Minimum); i < Convert.ToDouble(Maximum); i += Convert.ToDouble(Stepsize))
+            for (double i = Convert.ToDouble(Minimum); i <= Convert.ToDouble(Maximum); i += Convert.ToDouble(Stepsize))
             {
                 Tickmarks.Add(i);
             }
