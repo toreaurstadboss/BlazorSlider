@@ -22,6 +22,12 @@ namespace BlazorSliderLib
         public required string Title { get; set; }
 
         [Parameter]
+        public string? MinimumDescription { get; set; }
+
+        [Parameter]
+        public string? MaximumDescription { get; set; }
+
+        [Parameter]
         public required T Minimum { get; set; } = (T)Convert.ChangeType(0, typeof(T));
 
         [Parameter]

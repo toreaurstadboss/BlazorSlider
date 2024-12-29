@@ -7,8 +7,15 @@
         <option class="tick-label" value="@value" label="@value"></option>
     }
 </datalist>
+@if (!string.IsNullOrWhiteSpace(MinimumDescription)){
+    <label class="sliderv2Label">@MinimumDescription</label>
+}
 @if (!string.IsNullOrWhiteSpace(Title)){
-    <label class="sliderv2Label">@Title: @Value</label>
+<label class="sliderv2Label">@Title: @Value</label>
+}
+
+@if (!string.IsNullOrWhiteSpace(MaximumDescription)){
+    <label class="sliderv2Label">@MaximumDescription</label>
 }
 
 <link rel="stylesheet" href="_content/BlazorSliderLib/Slider.css" />
