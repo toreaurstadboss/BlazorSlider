@@ -33,6 +33,9 @@ namespace BlazorSliderLib
         [Parameter]
         public bool ShowTickmarks { get; set; } = true;
 
+        [Parameter]
+        public bool UseAlternateStyle { get; set; } = false;
+
         [Parameter] public EventCallback<T> ValueChanged { get; set; }
         private async Task OnValueChanged(ChangeEventArgs e)
         {
