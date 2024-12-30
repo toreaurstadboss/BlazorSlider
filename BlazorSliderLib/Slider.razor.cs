@@ -18,6 +18,28 @@ namespace BlazorSliderLib
         [Parameter]
         public T Value { get; set; }
 
+        public double ValueAsDouble { get; set; }
+
+        public double GetValueAsDouble()
+        {
+            if (typeof(T).IsEnum)
+            {
+                if (_isInitialized)
+                {
+                    var e = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(Value)));
+                    return Convert.ToDouble(Convert.ChangeType(Value, typeof(int)));
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return Convert.ToDouble(Value);
+            }
+        }        
+
         [Parameter, EditorRequired]
         public required string Title { get; set; }
 
@@ -28,13 +50,13 @@ namespace BlazorSliderLib
         public string? MaximumDescription { get; set; }
 
         [Parameter]
-        public required T Minimum { get; set; } = (T)Convert.ChangeType(0, typeof(T));
+        public double Minimum { get; set; } = typeof(T).IsEnum ? Enum.GetValues(typeof(T)).Cast<int>().Select(e => Convert.ToDouble(e)).Min() : 0.0;
 
         [Parameter]
-        public required T Maximum { get; set; } = (T)Convert.ChangeType(100, typeof(T));
+        public double Maximum { get; set; } = typeof(T).IsEnum ? Enum.GetValues(typeof(T)).Cast<int>().Select(e => Convert.ToDouble(e)).Max() : 100.0;
 
         [Parameter]
-        public required T Stepsize { get; set; } = (T)Convert.ChangeType(5, typeof(T));
+        public double? Stepsize { get; set; } = typeof(T).IsEnum ? 1 : 5.0;
 
         [Parameter]
         public bool ShowTickmarks { get; set; } = true;
@@ -47,6 +69,8 @@ namespace BlazorSliderLib
 
         public List<double> Tickmarks { get; set; } = new List<double>();
 
+        private List<T> _enumValues { get; set; } = new List<T>();
+
         private bool _isInitialized = false;
 
         private async Task OnValueChanged(ChangeEventArgs e)
@@ -55,18 +79,37 @@ namespace BlazorSliderLib
             {
                 return;
             }
-            Value = (T)Convert.ChangeType(e.Value, typeof(T));
+            if (typeof(T).IsEnum)
+            {
+                var enumValue = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(e.Value))); 
+                if (!enumValue.Equals(default(T))) {
+                    Value = enumValue;
+                }
+            }
+            else
+            {
+                Value = (T)Convert.ChangeType(e.Value, typeof(T));
+            }
+
+            ValueAsDouble = GetValueAsDouble();
+
             await ValueChanged.InvokeAsync(Value);
         }
 
 
         private string TickmarksId = "ticksmarks_" + Guid.NewGuid().ToString("N");
 
-        protected override void OnParametersSet()
+        protected override async Task OnParametersSetAsync()
         {
-            if (!_isInitialized && (Value.CompareTo(null) == 0 || Value.CompareTo(0) == 0))
+            if (_isInitialized)
+            {
+                return ; //initialize ONCE 
+            }
+
+            if (!typeof(T).IsEnum && Value.CompareTo(0) == 0)
             {
                 Value = (T)Convert.ChangeType((Convert.ToDouble(Maximum) - Convert.ToDouble(Minimum)) / 2, typeof(T));
+                ValueAsDouble = GetValueAsDouble();
             }
 
             if (Maximum.CompareTo(Minimum) < 1)
@@ -75,7 +118,22 @@ namespace BlazorSliderLib
             }
             GenerateTickMarks();
 
+            BuildEnumValuesListIfRequired();
+
             _isInitialized = true;
+
+            await Task.CompletedTask;
+        }
+
+        private void BuildEnumValuesListIfRequired()
+        {
+            if (typeof(T).IsEnum)
+            {
+                foreach (var item in Enum.GetValues(typeof(T)))
+                {
+                    _enumValues.Add((T)item);
+                }
+            }
         }
 
         private void GenerateTickMarks()
@@ -85,10 +143,27 @@ namespace BlazorSliderLib
             {
                 return;
             }
+            if (typeof(T).IsEnum)
+            {
+                int enumValuesCount = Enum.GetValues(typeof(T)).Length;
+                double offsetEnum = 0;
+                double minDoubleValue = Enum.GetValues(typeof(T)).Cast<int>().Select(e => Convert.ToDouble(e)).Min();
+                double maxDoubleValue = Enum.GetValues(typeof(T)).Cast<int>().Select(e => Convert.ToDouble(e)).Max();
+                double enumStepSizeCalculated = (maxDoubleValue - minDoubleValue) / enumValuesCount;
+
+                foreach (var enumValue in Enum.GetValues(typeof(T)))
+                {
+                    Tickmarks.Add(offsetEnum);
+                    offsetEnum += Math.Round(enumStepSizeCalculated, 0);
+                }
+                return;
+            }
+
             for (double i = Convert.ToDouble(Minimum); i <= Convert.ToDouble(Maximum); i += Convert.ToDouble(Stepsize))
             {
                 Tickmarks.Add(i);
             }
+
         }
 
     }
