@@ -18,7 +18,27 @@ namespace BlazorSliderLib
         [Parameter]
         public T Value { get; set; }
 
-        private T _value;
+        public double ValueAsDouble { get; set; }
+
+        public double GetValueAsDouble()
+        {
+            if (typeof(T).IsEnum)
+            {
+                if (_isInitialized)
+                {
+                    var e = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(Value)));
+                    return Convert.ToDouble(Convert.ChangeType(Value, typeof(int)));
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return Convert.ToDouble(Value);
+            }
+        }        
 
         [Parameter, EditorRequired]
         public required string Title { get; set; }
@@ -70,6 +90,9 @@ namespace BlazorSliderLib
             {
                 Value = (T)Convert.ChangeType(e.Value, typeof(T));
             }
+
+            ValueAsDouble = GetValueAsDouble();
+
             await ValueChanged.InvokeAsync(Value);
         }
 
