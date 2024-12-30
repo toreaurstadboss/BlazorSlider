@@ -18,6 +18,8 @@ namespace BlazorSliderLib
         [Parameter]
         public T Value { get; set; }
 
+        private T _value;
+
         [Parameter, EditorRequired]
         public required string Title { get; set; }
 
@@ -59,7 +61,10 @@ namespace BlazorSliderLib
             }
             if (typeof(T).IsEnum)
             {
-                var enumValue = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(e.Value))); if (!enumValue.Equals(default(T))) { Value = enumValue; }
+                var enumValue = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(e.Value))); 
+                if (!enumValue.Equals(default(T))) {
+                    Value = enumValue;
+                }
             }
             else
             {
@@ -71,9 +76,14 @@ namespace BlazorSliderLib
 
         private string TickmarksId = "ticksmarks_" + Guid.NewGuid().ToString("N");
 
-        protected override void OnParametersSet()
+        protected override async Task OnParametersSetAsync()
         {
-            if (!_isInitialized && !typeof(T).IsEnum && (Value.CompareTo(null) == 0 || Value.CompareTo(0) == 0))
+            if (_isInitialized)
+            {
+                return ; //initialize ONCE 
+            }
+
+            if (!typeof(T).IsEnum && Value.CompareTo(0) == 0)
             {
                 Value = (T)Convert.ChangeType((Convert.ToDouble(Maximum) - Convert.ToDouble(Minimum)) / 2, typeof(T));
             }
@@ -87,6 +97,8 @@ namespace BlazorSliderLib
             BuildEnumValuesListIfRequired();
 
             _isInitialized = true;
+
+            await Task.CompletedTask;
         }
 
         private void BuildEnumValuesListIfRequired()

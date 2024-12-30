@@ -10,6 +10,8 @@
 
             public int Eq5dq6 { get; set; }
 
+            public int Eq5dq6V2 { get; set; }
+
             public enum Eq5dWalk
             {
                 NoProblems = 0,
