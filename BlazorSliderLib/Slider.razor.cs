@@ -109,6 +109,7 @@ namespace BlazorSliderLib
             if (!typeof(T).IsEnum && Value.CompareTo(0) == 0)
             {
                 Value = (T)Convert.ChangeType((Convert.ToDouble(Maximum) - Convert.ToDouble(Minimum)) / 2, typeof(T));
+                ValueAsDouble = GetValueAsDouble();
             }
 
             if (Maximum.CompareTo(Minimum) < 1)
