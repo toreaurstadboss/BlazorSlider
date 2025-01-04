@@ -79,16 +79,20 @@ namespace BlazorSliderLib
             {
                 return;
             }
-            if (typeof(T).IsEnum)
+            if (typeof(T).IsEnum && e.Value != null)
             {
                 var enumValue = _enumValues.FirstOrDefault(v => Convert.ToDouble(v).Equals(Convert.ToDouble(e.Value))); 
-                if (!enumValue.Equals(default(T))) {
-                    Value = enumValue;
+                if (Enum.TryParse(typeof(T), enumValue.ToString(), out _)) {
+                    Value = enumValue; //check that it was a non-null value set from the slider
+                }
+                else
+                {
+                    return; //if we cannot handle the enum value set, do not process further
                 }
             }
             else
             {
-                Value = (T)Convert.ChangeType(e.Value, typeof(T));
+                Value = (T)Convert.ChangeType(e.Value!, typeof(T));
             }
 
             ValueAsDouble = GetValueAsDouble();

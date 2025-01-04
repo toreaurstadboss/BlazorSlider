@@ -10,7 +10,7 @@
     <div class="row">
         <div class="form-control col-md-4">
             <p><b>EQ5D-5L question 1.</b> <br />Mobility. Ability to walk.</p>
-            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="AlternateStyle.AlternateStyleInverseColorScale" Title="Ability to walk" @bind-Value="@(Model.Data.Eq5dq1)"
+            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="AlternateStyle.AlternateStyleInverseColorScale" Title="Ability to walk" ValueChanged="@((e) => UpdateEq5dQ1(e))"
             MinimumDescription="No Problems = The best ability to walk you can imagine" MaximumDescription="Incapable = The worst ability to walk you can imagine" />
         </div>
     </div>
@@ -66,6 +66,11 @@
 
 @code {
     private HomeModel Model { get; set; } = new();
+
+    private void UpdateEq5dQ1(Eq5dWalk val){
+        Model.Data.Eq5dq1 = val;
+        Console.WriteLine($"Setting Eq5dwalk to: " + val);
+    }
 
     /// <summary>
     /// Example of calling a eventcallback for the blazor model
