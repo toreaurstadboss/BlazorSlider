@@ -62,7 +62,7 @@ namespace BlazorSliderLib
         public bool ShowTickmarks { get; set; } = true;
 
         [Parameter]
-        public bool UseAlternateStyle { get; set; } = false;
+        public AlternateStyle UseAlternateStyle { get; set; } = AlternateStyle.None;
 
         [Parameter]
         public EventCallback<T> ValueChanged { get; set; }
@@ -164,8 +164,27 @@ namespace BlazorSliderLib
                 Tickmarks.Add(i);
             }
 
-        }
+        }      
 
+    }
+
+    public enum AlternateStyle
+    {
+        /// <summary>
+        /// No alternate style. Uses the ordinary styling for the slider (browser default of input type 'range')
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// Applies alternate style, using in addition to the 'slider track' an additional visual hint with an additional 'slider track' right below that shows a reddish color for lowest parts of the scale to the slider and towards yellow and greenish hues for higher values
+        /// The alternate style uses a larger 'slider thumb' and alternate style to the 'slider-track'. The alternate style gives a more interesting look, especially in Microsoft Edge Chromium.
+        /// </summary>
+        AlternateStyle,
+
+        /// <summary>
+        /// Similar in style to the alternate style, but uses the inverse scale for the colors along the slider
+        /// </summary>
+        AlternateStyleInverseColorScale
     }
 
 }

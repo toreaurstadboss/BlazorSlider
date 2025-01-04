@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
+@using BlazorSliderLib
 @typeparam T where T : struct, IComparable
 
-<div class="slider-container sliderv2 @(UseAlternateStyle ? "alternate-style" : "")">
+<div class="slider-container sliderv2 @((UseAlternateStyle == AlternateStyle.AlternateStyle || (UseAlternateStyle == AlternateStyle.AlternateStyleInverseColorScale))? "alternate-style" : "") @(UseAlternateStyle == AlternateStyle.AlternateStyleInverseColorScale ? "alternate-style-inverse-colorscale" : "")">
 <input type="range" @bind="@ValueAsDouble" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
 <datalist id="@TickmarksId">
     @{

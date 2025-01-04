@@ -10,7 +10,7 @@
     <div class="row">
         <div class="form-control col-md-4">
             <p><b>EQ5D-5L question 1.</b> <br />Mobility. Ability to walk.</p>
-            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="true" Title="Ability to walk" @bind-Value="@(Model.Data.Eq5dq1)"
+            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="AlternateStyle.AlternateStyleInverseColorScale" Title="Ability to walk" @bind-Value="@(Model.Data.Eq5dq1)"
             MinimumDescription="No Problems = The best ability to walk you can imagine" MaximumDescription="Incapable = The worst ability to walk you can imagine" />
         </div>
     </div>
@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="form-control col-md-4">
-            <BlazorSliderLib.Slider T="int" UseAlternateStyle="true" Minimum="0" Maximum="100" @bind-Value="@(Model.Data.Eq5dq6)" Stepsize="5" Title="Your health today"
+            <BlazorSliderLib.Slider T="int" UseAlternateStyle="AlternateStyle.AlternateStyle" Minimum="0" Maximum="100" @bind-Value="@(Model.Data.Eq5dq6)" Stepsize="5" Title="Your health today"
             MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
         </div>
     </div>
@@ -36,7 +36,7 @@
 
     <div class="row">
         <div class="form-control col-md-4">
-            <BlazorSliderLib.Slider T="int" UseAlternateStyle="false" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
+            <BlazorSliderLib.Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
             MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
         </div>
     </div>
