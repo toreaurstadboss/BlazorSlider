@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 @typeparam T where T : struct, IComparable
 
-<input class="sliderv2" type="range" @bind="@ValueAsDouble" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
+<div class="slider-container @(UseAlternateStyle ? "alternate-style" : "")">
+<input class="slider-container @(UseAlternateStyle ? "alternate-style" : "")" type="range" @bind="@ValueAsDouble" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
 <datalist id="@TickmarksId">
     @{
         var itemIndex = 0;
@@ -17,6 +18,7 @@
         itemIndex++;    
     }
 </datalist>
+
 <div class="row">
 @if (!string.IsNullOrWhiteSpace(MinimumDescription)){
     <div class="col-md-4">
@@ -35,9 +37,12 @@
     </div>
 }
 
+</div>
+
 <link rel="stylesheet" href="_content/BlazorSliderLib/Slider.css" />
-@if (UseAlternateStyle){
-    <link rel="stylesheet" href="_content/BlazorSliderLib/SliderGreen.css" />      
-}
+<link rel="stylesheet" href="_content/BlazorSliderLib/SliderAlternate.css" />
+
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
 
 </div>

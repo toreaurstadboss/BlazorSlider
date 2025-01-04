@@ -10,8 +10,8 @@
     <div class="row">
         <div class="form-control col-md-4">
             <p><b>EQ5D-5L question 1.</b> <br />Mobility. Ability to walk.</p>
-            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="false" Title="Ability to walk" ValueChanged="@((e) => UpdateEq5dq1(e))"
-            MinimumDescription="Incapable = The worst ability to walk you can imagine" MaximumDescription="No Problems = The best ability to walk you can imagine" />
+            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="true" Title="Ability to walk" @bind-Value="@(Model.Data.Eq5dq1)"
+            MinimumDescription="No Problems = The best ability to walk you can imagine" MaximumDescription="Incapable = The worst ability to walk you can imagine" />
         </div>
     </div>
 
@@ -37,7 +37,7 @@
     <div class="row">
         <div class="form-control col-md-4">
             <BlazorSliderLib.Slider T="int" UseAlternateStyle="false" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
-                                    MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
+            MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
         </div>
     </div>
 
@@ -67,11 +67,10 @@
 @code {
     private HomeModel Model { get; set; } = new();
 
-    private void UpdateEq5dq1(Eq5dWalk value)
-    {
-        Model.Data.Eq5dq1 = value;
-    }
-
+    /// <summary>
+    /// Example of calling a eventcallback for the blazor model
+    /// </summary>
+    /// <param name="value"></param>
     private void UpdateEq5dq6V2(int value)
     {
         Model.Data.Eq5dq6V2 = value;
