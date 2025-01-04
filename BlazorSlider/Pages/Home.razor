@@ -1,47 +1,82 @@
 ﻿@page "/"
 @using BlazorSlider.Models
 @using BlazorSliderLib
-
+@using static BlazorSlider.Models.HomeModel.HomeDataContract
 
 <PageTitle>Home</PageTitle>
 
-
 <div class="container"> 
 
-    <EditForm Model="@Model">
-
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY.</p>
-            </div>
+    <div class="row">
+        <div class="form-control col-md-4">
+            <p><b>EQ5D-5L question 1.</b> <br />Mobility. Ability to walk.</p>
+            <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="false" Title="Ability to walk" ValueChanged="@((e) => UpdateEq5dq1(e))"
+            MinimumDescription="Incapable = The worst ability to walk you can imagine" MaximumDescription="No Problems = The best ability to walk you can imagine" />
         </div>
+    </div>
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <Slider T="int" UseAlternateStyle="false" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateStateIfNecessary(e))" Stepsize="5" Title="Your health today"
-                    MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
-            </div>
+    <div class="row">
+        <div class="form-control col-md-4">
+            <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY.</p>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="form-control col-md-4"> <p>Value of Model.Data.Eq5d6</p>
-                @Model.Data.Eq5dq6 
-            </div> 
+    <div class="row">
+        <div class="form-control col-md-4">
+            <BlazorSliderLib.Slider T="int" UseAlternateStyle="true" Minimum="0" Maximum="100" @bind-Value="@(Model.Data.Eq5dq6)" Stepsize="5" Title="Your health today"
+            MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
         </div>
+    </div>
 
+    <div class="row">
+        <div class="form-control col-md-4">
+            <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY. V2 field.</p>
+        </div>
+    </div>
 
-    </EditForm>
+    <div class="row">
+        <div class="form-control col-md-4">
+            <BlazorSliderLib.Slider T="int" UseAlternateStyle="false" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
+                                    MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-control col-md-4">
+            <p>Value of Model.Data.Eq5dq1</p>
+            @Model.Data.Eq5dq1
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-control col-md-4"> <p>Value of Model.Data.Eq5d6</p>
+            @Model.Data.Eq5dq6 
+        </div> 
+    </div>
+
+    <div class="row">
+        <div class="form-control col-md-4">
+            <p>Value of Model.Data.Eq5d6V2</p>
+            @Model.Data.Eq5dq6V2
+        </div>
+    </div>
+
 
 </div>
 
 @code {
     private HomeModel Model { get; set; } = new();
 
-    private void UpdateStateIfNecessary(int value)
+    private void UpdateEq5dq1(Eq5dWalk value)
     {
-        Console.WriteLine($"The curent value is {value}");
-        Model.Data.Eq5dq6 = value;
-        StateHasChanged();
+        Model.Data.Eq5dq1 = value;
     }
+
+    private void UpdateEq5dq6V2(int value)
+    {
+        Model.Data.Eq5dq6V2 = value;
+    }
+
+
 }
 
