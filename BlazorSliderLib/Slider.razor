@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 @typeparam T where T : struct, IComparable
 
-<div class="slider-container @(UseAlternateStyle ? "alternate-style" : "")">
-<input class="slider-container @(UseAlternateStyle ? "alternate-style" : "")" type="range" @bind="@ValueAsDouble" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
+<div class="slider-container sliderv2 @(UseAlternateStyle ? "alternate-style" : "")">
+<input type="range" @bind="@ValueAsDouble" min="@Minimum" max="@Maximum" step="@Stepsize" list="@TickmarksId" @oninput="OnValueChanged" />
 <datalist id="@TickmarksId">
     @{
         var itemIndex = 0;
