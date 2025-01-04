@@ -34,61 +34,61 @@ the updated values are shown in labels below :
 
 <pre>
 <code class='hljs html'>
-    <div class="container"> 
+    &lt;div class="container"&gt; 
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p><b>EQ5D-5L question 1.</b> <br />Mobility. Ability to walk.</p>
-                <BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="AlternateStyle.AlternateStyleInverseColorScale" Title="Ability to walk" ValueChanged="@((e) => UpdateEq5dQ1(e))"
-                MinimumDescription="No Problems = The best ability to walk you can imagine" MaximumDescription="Incapable = The worst ability to walk you can imagine" />
-            </div>
-        </div>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;p&gt;&lt;b&gt;EQ5D-5L question 1.&lt;/b&gt; &lt;br /&gt;Mobility. Ability to walk.&lt;/p&gt;
+                &lt;BlazorSliderLib.Slider T="Eq5dWalk" UseAlternateStyle="AlternateStyle.AlternateStyleInverseColorScale" Title="Ability to walk" ValueChanged="@((e) =&gt; UpdateEq5dQ1(e))"
+                MinimumDescription="No Problems = The best ability to walk you can imagine" MaximumDescription="Incapable = The worst ability to walk you can imagine" /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY.</p>
-            </div>
-        </div>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;p&gt;&lt;b&gt;EQ5D-5L question 6.&lt;/b&gt; &lt;br /&gt;We would like to how good or bad your health is TODAY.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <BlazorSliderLib.Slider T="int" UseAlternateStyle="AlternateStyle.AlternateStyle" Minimum="0" Maximum="100" @bind-Value="@(Model.Data.Eq5dq6)" Stepsize="5" Title="Your health today"
-                MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
-            </div>
-        </div>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;BlazorSliderLib.Slider T="int" UseAlternateStyle="AlternateStyle.AlternateStyle" Minimum="0" Maximum="100" @bind-Value="@(Model.Data.Eq5dq6)" Stepsize="5" Title="Your health today"
+                MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p><b>EQ5D-5L question 6.</b> <br />We would like to how good or bad your health is TODAY. V2 field.</p>
-            </div>
-        </div>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;p&gt;&lt;b&gt;EQ5D-5L question 6.&lt;/b&gt; &lt;br /&gt;We would like to how good or bad your health is TODAY. V2 field.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <BlazorSliderLib.Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) => UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
-                MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" />
-            </div>
-        </div>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;BlazorSliderLib.Slider T="int" Minimum="0" Maximum="100" ValueChanged="@((e) =&gt; UpdateEq5dq6V2(e))" Stepsize="5" Title="Your health today (v2 field)"
+                MinimumDescription="0 = The worst health you can imagine" MaximumDescription="100 = The best health you can imagine" /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p>Value of Model.Data.Eq5dq1</p>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;p&gt;Value of Model.Data.Eq5dq1&lt;/p&gt;
                 @Model.Data.Eq5dq1
-            </div>
-        </div>
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4"> <p>Value of Model.Data.Eq5d6</p>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt; &lt;p&gt;Value of Model.Data.Eq5d6&lt;/p&gt;
                 @Model.Data.Eq5dq6 
-            </div> 
-        </div>
+            &lt;/div&gt; 
+        &lt;/div&gt;
 
-        <div class="row">
-            <div class="form-control col-md-4">
-                <p>Value of Model.Data.Eq5d6V2</p>
+        &lt;div class="row"&gt;
+            &lt;div class="form-control col-md-4"&gt;
+                &lt;p&gt;Value of Model.Data.Eq5d6V2&lt;/p&gt;
                 @Model.Data.Eq5dq6V2
-            </div>
-        </div>
+            &lt;/div&gt;
+        &lt;/div&gt;
 
     </div>
 </code>
